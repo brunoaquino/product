@@ -2,7 +2,7 @@
 
 Dependencias: \
  docker  \
- docker-compose  \ \
+ docker-compose  \ 
  
 Para Rodar o projeto:
 
