@@ -1,8 +1,8 @@
 # product
 
-Dependencias:/
- docker/
- docker-compose //
+Dependencias: \
+ docker  \
+ docker-compose  \ \
  
 Para Rodar o projeto:
 
