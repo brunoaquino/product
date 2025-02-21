@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: Product
+
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/dbTest?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  elasticsearch:
+    uris: http://localhost:9200
+    username: elastic
+    password: elastic_password
+
+  kafka:
+    bootstrap-servers: localhost:9093
+    consumer:
+      group-id: stock-update-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: true
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+server:
+  port: 8080
+
+logging:
+  level:
+    br.com.foursales.product: info
+
+
