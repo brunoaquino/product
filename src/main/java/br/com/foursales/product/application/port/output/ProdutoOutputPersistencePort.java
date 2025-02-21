@@ -10,5 +10,7 @@ public interface ProdutoOutputPersistencePort {
 
     Optional<Produto> getProdutoById(Long id);
 
+    void delete(Long id);
+
     Optional<Produto> getProdutoByNome(String nome);
 }

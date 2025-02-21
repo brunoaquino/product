@@ -1,22 +1,18 @@
 package br.com.foursales.product.domain.service;
 
-import br.com.foursales.product.application.port.input.produto.CreateProdutoUseCase;
-import br.com.foursales.product.application.port.input.produto.GetProdutoUseCase;
-import br.com.foursales.product.application.port.input.produto.SaveProdutoElasticsearchUseCase;
-import br.com.foursales.product.application.port.input.produto.UpdateProdutoUseCase;
+import br.com.foursales.product.application.port.input.produto.*;
 import br.com.foursales.product.application.port.output.ProdutoEventPublisher;
 import br.com.foursales.product.application.port.output.ProdutoOutputElasticsearchPort;
 import br.com.foursales.product.application.port.output.ProdutoOutputPersistencePort;
 import br.com.foursales.product.domain.event.ProdutoCreatedEvent;
 import br.com.foursales.product.domain.exception.ProdutoException;
-import br.com.foursales.product.domain.model.ConsultaProdutoElastic;
 import br.com.foursales.product.domain.model.Produto;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 @AllArgsConstructor
-public class ProdutoService implements CreateProdutoUseCase, GetProdutoUseCase, SaveProdutoElasticsearchUseCase, UpdateProdutoUseCase {
+public class ProdutoService implements CreateProdutoUseCase, GetProdutoUseCase, SaveProdutoElasticsearchUseCase, UpdateProdutoUseCase, DeleteProdutoUseCase {
 
     private final ProdutoOutputPersistencePort produtoOutputPort;
 
@@ -59,5 +55,10 @@ public class ProdutoService implements CreateProdutoUseCase, GetProdutoUseCase, 
         this.produtoOutputPort.saveProduto(produto);
         this.produtoOutputElasticsearchPort.saveProduto(produto);
         return produto;
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.produtoOutputPort.delete(id);
     }
 }

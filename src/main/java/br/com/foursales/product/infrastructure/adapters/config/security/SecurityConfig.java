@@ -35,8 +35,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/v1/auth/login").permitAll()
-                        .requestMatchers("/produtos/**").hasRole("ADMIN")
-                        .requestMatchers("/pedidos/**").hasRole("USER")
+                        .requestMatchers("/v1/produtos/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/pedido/**").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

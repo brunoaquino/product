@@ -1,9 +1,11 @@
 package br.com.foursales.product.infrastructure.adapters.output.persistence;
 
 import br.com.foursales.product.application.port.output.ProdutoOutputPersistencePort;
+import br.com.foursales.product.domain.exception.ProdutoException;
 import br.com.foursales.product.domain.model.Produto;
 import br.com.foursales.product.infrastructure.adapters.output.persistence.entity.ProdutoEntity;
 import br.com.foursales.product.infrastructure.adapters.output.persistence.mapper.ProdutoPersistenceMapper;
+import br.com.foursales.product.infrastructure.adapters.output.persistence.repository.ItemPedidoRepository;
 import br.com.foursales.product.infrastructure.adapters.output.persistence.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class ProdutoPersistenceAdapter implements ProdutoOutputPersistencePort {
 
     private final ProdutoRepository produtoRepository;
+    private final ItemPedidoRepository itemPedidoRepository;
 
     private final ProdutoPersistenceMapper produtoPersistenceMapper;
 
@@ -27,7 +30,7 @@ public class ProdutoPersistenceAdapter implements ProdutoOutputPersistencePort {
     public Optional<Produto> getProdutoById(final Long id) {
         final Optional<ProdutoEntity> produtoEntity = this.produtoRepository.findById(id);
 
-        if(produtoEntity.isEmpty()) {
+        if (produtoEntity.isEmpty()) {
             return Optional.empty();
         }
 
@@ -36,10 +39,19 @@ public class ProdutoPersistenceAdapter implements ProdutoOutputPersistencePort {
     }
 
     @Override
+    public void delete(Long id) {
+        ProdutoEntity produto = this.produtoRepository.findById(id).get();
+        if (!this.itemPedidoRepository.findByProduto(produto).isEmpty()) {
+            throw new ProdutoException("Produto Não pode ser deletado, pois está sendo usado.");
+        }
+        this.produtoRepository.delete(produto);
+    }
+
+    @Override
     public Optional<Produto> getProdutoByNome(String nome) {
         final Optional<ProdutoEntity> produtoEntity = this.produtoRepository.getProdutoByNome(nome);
 
-        if(produtoEntity.isEmpty()) {
+        if (produtoEntity.isEmpty()) {
             return Optional.empty();
         }
 

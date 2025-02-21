@@ -2,11 +2,15 @@
 
 Dependencias: \
  docker  \
- docker-compose
- 
+ docker-compose  \
+ Mysql 5.7  \
+ Kafka 7.4.1
+
 Para Rodar o projeto:
 
 Na pasta do projeto rodar para subir as aplicações necessárias: docker-compose -f docker_compose_config.yml up -d
+
+Rodar Script no Mysql para criar as tabelas e usuários: criar_tabelas_iniciais.sql
 
 Acessar Container docker e criar topicos  \
 docker exec -it kafka bash
@@ -46,6 +50,23 @@ curl --location 'http://localhost:8080/v1/produtos/' \
 Verificar Produto Criado
 curl --location 'http://localhost:8080/v1/produtos/2' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: <Bearer Token>'
+
+Update Produto
+curl --location --request PUT 'http://localhost:8080/v1/admin/produtos/' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: <Bearer Token>' \
+--data '{
+"id": 1,
+"nome": "teste",
+"descricao": "asdasd",
+"quantidadeEmEstoque": 50,
+"preco": 5.50,
+"categoria": "CAT1"
+}'
+
+Delete Produto
+curl --location --request DELETE 'http://localhost:8080/v1/admin/produtos/3' \
 --header 'Authorization: <Bearer Token>'
 
 Consultar Produto no Elasticsearch
