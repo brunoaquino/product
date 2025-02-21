@@ -89,19 +89,19 @@ curl --location 'http://localhost:8080/v1/pedido/' \
     ]
 }'
 
-Pagar Pedido
+Pagar Pedido \
 curl --location --request POST 'http://localhost:8080/v1/pedido/pagar/16' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: <Bearer Token>'
 
-Consultar Top 5 usuários que mais compraram
+Consultar Top 5 usuários que mais compraram \
 curl --location 'http://localhost:8080/v1/pedido/buscarTop5UsuariosQueMaisCompraram' \
 --header 'Authorization: <Bearer Token>'
 
-Consultar Valor total faturado no mês.
+Consultar Valor total faturado no mês. \
 curl --location 'http://localhost:8080/v1/pedido/calcularFaturamentoMensal?ano=2025&mes=2' \
 --header 'Authorization: <Bearer Token>'
 
-Consultar Ticket médio dos pedidos de cada usuário.
+Consultar Ticket médio dos pedidos de cada usuário. \
 curl --location 'http://localhost:8080/v1/pedido/calcularTicketMedioPorUsuario' \
 --header 'Authorization: <Bearer Token>'
