@@ -2,14 +2,14 @@
 
 Dependencias: \
  docker  \
- docker-compose \
+ docker-compose
  
 Para Rodar o projeto:
 
 Na pasta do projeto rodar para subir as aplicações necessárias: docker-compose -f docker_compose_config.yml up -d
 
-Acessar Container docker e criar topicos
-   docker exec -it kafka bash
+Acessar Container docker e criar topicos  \
+docker exec -it kafka bash
 
 Criar Topico order.created: kafka-topics --create --topic order.created --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
 Criar Topico order.paid: kafka-topics --create --topic order.paid --partitions 1 --replication-factor 1 --bootstrap-server localhost:9092
